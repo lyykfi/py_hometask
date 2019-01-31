@@ -1,5 +1,6 @@
 """Main file."""
 from command_line import PyCalcCommandLine
 
-calc = PyCalcCommandLine()
-calc.Parse()
+if __name__ == '__main__':
+  calc = PyCalcCommandLine()
+  calc.Parse()
