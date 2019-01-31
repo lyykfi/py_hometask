@@ -1,3 +1,0 @@
-#!/Users/andreimakar/Work/python_homework/env/bin/python
-from requirements_detector.run import run
-run()

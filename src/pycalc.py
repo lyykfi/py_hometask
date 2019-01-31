@@ -104,6 +104,7 @@ class PyCalc(object):
         stack_len = len(stack)
         while stack_len and stack[stack_len - 1] != '(':
           output.append(stack.pop())
+          stack_len = len(stack)
         stack.append(op)
 
       i += 1

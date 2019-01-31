@@ -1,4 +1,0 @@
-#!/Users/andreimakar/Work/python_homework/env/bin/python
-
-import dodgy.run
-dodgy.run.run()
