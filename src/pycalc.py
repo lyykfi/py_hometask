@@ -41,17 +41,15 @@ class PyCalc(object):
       A string with result.
     """
     s = []
-    s_length = len(s)
 
     for symbol in tokens:
       if symbol.isdigit():
         s.append(int(symbol))
         plus = None
-      elif s_length:
-        if self.COMMANDS.get(symbol):
-          plus = self.COMMANDS.get(symbol)(s)
-        if plus is not None:
-          s.append(plus)
+      if self.COMMANDS.get(symbol):
+        plus = self.COMMANDS.get(symbol)(s)
+      if plus is not None:
+        s.append(plus)
 
     return s.pop()
 
@@ -105,7 +103,9 @@ class PyCalc(object):
         while stack_len and stack[stack_len - 1] != '(':
           output.append(stack.pop())
           stack_len = len(stack)
-        stack.append(op)
+
+        if op in self.OPERATORS:
+          stack.append(op)
 
       i += 1
 

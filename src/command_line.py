@@ -30,5 +30,6 @@ class PyCalcCommandLine(object):
     """ Parses arguments and parse expression."""
     args = self._parser.parse_args()
 
-    py_calc = pycalc.PyCalc(args.EXPRESSION)
-    print py_calc.Parse()
+    if args.EXPRESSION:
+      py_calc = pycalc.PyCalc(args.EXPRESSION)
+      print py_calc.Parse()

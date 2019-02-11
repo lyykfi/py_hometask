@@ -1,12 +1,28 @@
+import collections
 import unittest
+import mock
 
+import command_line
+
+Arg = collections.namedtuple('Arg', ['EXPRESSION'])
 
 class TestPyCalcCommandLine(unittest.TestCase):
 
-  def testInit(self):
-    self.assertEqual(self.proposal_row.row_index, 1)
+  def testInitArguments(self):
+    py_calc_command_line = command_line.PyCalcCommandLine()
+    py_calc_command_line._parser.add_argument = mock.MagicMock()
+    py_calc_command_line._InitArguments()
 
-    self.assertEqual(self.proposal_row.proposal_code, 'PROPOSAL-323')
-    self.assertEqual(self.proposal_row.status, 'applied')
-    self.assertEqual(self.proposal_row.decline_other, 'declined')
-    self.assertEqual(self.proposal_row.comment, 'test_comment')
+    for name, arg in py_calc_command_line._ARGUMENTS.iteritems():
+      py_calc_command_line._parser.add_argument.assert_called_once_with(
+          name, help=arg.help)
+
+  def testParseNominal(self):
+    py_calc_command_line = command_line.PyCalcCommandLine()
+
+    py_calc_command_line._parser.parse_args = mock.MagicMock()
+    py_calc_command_line._parser.parse_args.return_value = Arg(
+        EXPRESSION='3+4')
+    py_calc_command_line.Parse()
+
+    py_calc_command_line._parser.parse_args.assert_called_once_with()
